@@ -1,0 +1,50 @@
+.App {
+  text-align: center;
+}
+
+body {
+  background-color: teal;
+}
+
+.main-form {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-left: 20rem;
+  margin-right: 20rem;
+  margin-top: 2rem;
+  /* border: 2px solid navy; */
+}
+
+.field {
+  margin-left: 10rem;
+  margin-right: 10rem;
+  margin-bottom: .8rem;
+  
+}
+
+.checkbox-container {
+  margin-bottom: 1rem;
+}
+
+.btn {
+  margin-left: 15rem;
+  margin-right: 15rem;
+	background-color:#cc39af;
+	border-radius:11px;
+	border:1px solid #000000;
+	/* display:inline-block; */
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:16px;
+	/* padding:12px 67px; */
+	text-decoration:none;
+}
+.btn:hover {
+	background-color:#ebd31d;
+}
+.btn:active {
+	position:relative;
+	top:1px;
+}
