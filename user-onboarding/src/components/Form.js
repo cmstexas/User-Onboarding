@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Field, withFormik } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
-// import './App.css';
+import '../App.css';
 
 const UserForm = ({ errors, touched, values, handleSubmit, status }) => {
     const [users, setUsers] = useState([{Name:'Bob', Email:'b@gmail.com', Password:'pw', tos:false, id: Date.now()}]);
@@ -18,18 +18,18 @@ const UserForm = ({ errors, touched, values, handleSubmit, status }) => {
     return (
         <div className="user-form">
       <h1>User Onboarding Form</h1>
-      <Form>
-        <Field type="text" name="Name" placeholder="Name" />
+      <Form className='main-form'>
+        <Field className='field' type="text" name="Name" placeholder="Name" />
         {touched.Name && errors.Name && (
           <p className="error">{errors.Name}</p>
         )}
 
-        <Field type="text" name="Email" placeholder="Email" />
+        <Field className='field' type="text" name="Email" placeholder="Email" />
         {touched.Email && errors.Email && (
         <p className="error">{errors.Email}</p>
         )}
 
-        <Field type="text" name="Password" placeholder="Password" />
+        <Field className='field' type="text" name="Password" placeholder="Password" />
         {touched.Password && errors.Password && <p className="error">{errors.Password}</p>
         }
 
@@ -39,7 +39,7 @@ const UserForm = ({ errors, touched, values, handleSubmit, status }) => {
          <span className="checkmark" />
         </label>
 
-        <button type="submit">Submit New User!</button>
+        <button className='btn' type="submit">Submit New User!</button>
       </Form>
 
       {users.map(user => {
