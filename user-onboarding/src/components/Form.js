@@ -5,35 +5,36 @@ import * as Yup from 'yup';
 // import './App.css';
 
 const UserForm = ({ errors, touched, values, handleSubmit, status }) => {
-    const [users, setUsers] = useState([{name:'', email:'', password:'', tos:false}]);
-    console.log(users);
+    const [users, setUsers] = useState([{Name:'Bob', Email:'b@gmail.com', Password:'pw', tos:false, id: Date.now()}]);
+    console.log(status);
+    console.log(users)
 
     useEffect(() => {
         if (status) {
           setUsers([...users, status]);
         }
-      }, [status, users]);
+      }, [status]);
 
     return (
         <div className="user-form">
       <h1>User Onboarding Form</h1>
       <Form>
         <Field type="text" name="Name" placeholder="Name" />
-        {touched.name && errors.name && (
-          <p className="error">{errors.name}</p>
+        {touched.Name && errors.Name && (
+          <p className="error">{errors.Name}</p>
         )}
 
         <Field type="text" name="Email" placeholder="Email" />
-        {touched.email && errors.email && (
-        <p className="error">{errors.email}</p>
+        {touched.Email && errors.Email && (
+        <p className="error">{errors.Email}</p>
         )}
 
         <Field type="text" name="Password" placeholder="Password" />
-        {touched.password && errors.password && <p className="error">{errors.password}</p>
+        {touched.Password && errors.Password && <p className="error">{errors.Password}</p>
         }
 
         <label className="checkbox-container">
-          Terms of Service
+          Agree to Terms of Service?
          <Field type="checkbox" name="tos" checked={values.tos} />
          <span className="checkmark" />
         </label>
@@ -41,9 +42,9 @@ const UserForm = ({ errors, touched, values, handleSubmit, status }) => {
         <button type="submit">Submit New User!</button>
       </Form>
 
-      {users.map(user => (
-        <p key={user.id}>{user.name}</p>
-      ))}
+      {users.map(user => {
+        return <p key={user.id}>{user.Name}</p>
+      })}
     </div>
   );
 };
@@ -54,29 +55,30 @@ const UserForm = ({ errors, touched, values, handleSubmit, status }) => {
 // returns a _new_ component (copy of the passed in component with the extended logic)
 
 const FormikUserForm = withFormik({
-  mapPropsToValues({ name, email, password, tos }) {
+  mapPropsToValues({ Name, Email, Password, tos }) {
     return {
-      name: values.name || '',
-      email: email || '',
-      password: password || '',
+      Name: Name || '',
+      Email: Email || '',
+      Password: Password || '',
       tos: tos || false
     };
   },
 
   validationSchema: Yup.object().shape({
-    name: Yup.string().required(),
-    email: Yup.string().required(),
-    password: Yup.string(),
+    Name: Yup.string().required(),
+    Email: Yup.string().required(),
+    Password: Yup.string(),
     tos: Yup.boolean().oneOf([true], 'Please accept Terms and Condutions'),
   }),
 
-  handleSubmit(values, { setStatus }) {
+  handleSubmit(values, { setStatus, resetForm }) {
     axios
       .post('https://reqres.in/api/users/', values)
       .then(res => {
-          setStatus(res.data);
+         return setStatus(res.data);
       })
       .catch(err => console.log(err.response));
+    resetForm()
   }
 })(UserForm); // currying functions in Javascript
 
